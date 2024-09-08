@@ -4,7 +4,7 @@ import json
 import os
 
 # before all else, abort if the config is off
-with open("./include/config/pokemon.h", "r") as file:
+with open("./include/config/pokemon.h", "r", encoding='utf-8') as file:
     learnset_config = re.findall(r"#define P_LEARNSET_HELPER_TEACHABLE *([^ ]*)", file.read())
     if len(learnset_config) != 1:
         quit()
@@ -25,7 +25,7 @@ if len(incs_to_check) == 0: # disabled if no jsons present
     quit()
 
 for file in incs_to_check:
-    with open(file, 'r') as f2:
+    with open(file, 'r', encoding='utf-8') as f2:
         raw = f2.read()
     if 'special ChooseMonForMoveTutor' in raw:
         for x in re.findall(r'setvar VAR_0x8005, (MOVE_.*)', raw):
