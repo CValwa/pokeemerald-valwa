@@ -1,0 +1,20 @@
+#ifndef GUARD_DNS_CONSTANTS_H
+#define GUARD_DNS_CONSTANTS_H
+
+enum {
+    DNS_TIME_MIDNIGHT,
+    DNS_TIME_DAWN,
+    DNS_TIME_DAY,
+    DNS_TIME_SUNSET,
+    DNS_TIME_NIGHTFALL,
+    DNS_TIME_NIGHT
+};
+
+#define MIDNIGHT_END_HOUR   7
+#define DAWN_END_HOUR       8
+#define DAY_END_HOUR        19
+#define SUNSET_END_HOUR     20
+#define NIGHTFALL_END_HOUR  21
+#define NIGHT_END_HOUR      0
+
+#endif // GUARD_DNS_CONSTANTS_H
