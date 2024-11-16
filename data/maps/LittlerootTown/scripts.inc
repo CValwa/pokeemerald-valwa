@@ -1019,3 +1019,41 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
 
+LittlerootTown_EventScript_TryRemoveTrevenant::
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+	removeobject VAR_LAST_TALKED
+	return
+
+
+LittlerootTown_EventScript_WildTrevenant::
+	lock
+	faceplayer
+	setwildbattle SPECIES_GENGAR, 40
+	waitse
+	playmoncry SPECIES_GENGAR, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, LittlerootTown_EventScript_DefeatedTrevenant
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, LittlerootTown_EventScript_RanFromTrevenant
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, LittlerootTown_EventScript_RanFromTrevenant
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, LittlerootTown_EventScript_Caught
+	release
+	end
+
+LittlerootTown_EventScript_DefeatedTrevenant::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+LittlerootTown_EventScript_RanFromTrevenant::
+	goto Common_EventScript_FleeingPokemon
+	end
+
+LittlerootTown_EventScript_Caught::
+	goto Common_EventScript_CaughtPokemon
+	end
