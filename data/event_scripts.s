@@ -1031,6 +1031,9 @@ gText_Sudowoodo_Attacked::
 	.string "WAILMER PAIL!\p"
 	.string "The weird tree attacked!$"
 
+gText_FleeingPokemon::
+	.string "The {STR_VAR_1} fled!$"
+
 gText_LegendaryFlewAway::
 	.string "The {STR_VAR_1} flew away!$"
 
@@ -1083,6 +1086,24 @@ Common_EventScript_LegendaryFlewAway::
 	msgbox gText_LegendaryFlewAway, MSGBOX_DEFAULT
 	release
 	end
+
+Common_EventScript_FleeingPokemon::
+	fadescreenswapbuffers FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreenswapbuffers FADE_FROM_BLACK
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+	msgbox gText_FleeingPokemon, MSGBOX_DEFAULT
+	release
+	end
+
+Common_EventScript_CaughtPokemon::
+	fadescreenswapbuffers FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreenswapbuffers FADE_FROM_BLACK
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+	release
+	end
+
 
 EventScript_VsSeekerChargingDone::
 	special VsSeekerFreezeObjectsAfterChargeComplete

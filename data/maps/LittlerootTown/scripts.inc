@@ -51,6 +51,8 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, LittlerootTown_EventScript_SetRivalLeftForRoute103
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_HideMapNamePopup
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_EventScript_LeftLabAfterDexUpgrade
+	clearflag FLAG_UNUSED_0x021
+	clearflag FLAG_UNUSED_0x020
 	end
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
@@ -908,6 +910,68 @@ LittlerootTown_EventScript_GiveRunningShoes::
 	closemessage
 	delay 30
 	return
+
+LittlerootTown_EventScript_Starly1::
+	lock
+	faceplayer
+	setwildbattle SPECIES_STARLY, 2
+	waitse
+	playmoncry SPECIES_STARLY, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, LittlerootTown_EventScript_DefeatedStarly1
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, LittlerootTown_EventScript_RanFromStarly1
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, LittlerootTown_EventScript_Caught1
+	release
+	end
+
+LittlerootTown_EventScript_DefeatedStarly1::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+LittlerootTown_EventScript_RanFromStarly1::
+	setvar VAR_0x8004, SPECIES_STARLY
+	goto Common_EventScript_FleeingPokemon
+	end
+
+LittlerootTown_EventScript_Caught1::
+	goto Common_EventScript_CaughtPokemon
+	end
+
+LittlerootTown_EventScript_Starly2::
+	lock
+	faceplayer
+	setwildbattle SPECIES_STARLY, 5
+	waitse
+	playmoncry SPECIES_STARLY, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, LittlerootTown_EventScript_DefeatedStarly2
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, LittlerootTown_EventScript_RanFromStarly2
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, LittlerootTown_EventScript_Caught2
+	release
+	end
+
+LittlerootTown_EventScript_DefeatedStarly2::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+LittlerootTown_EventScript_RanFromStarly2::
+    setvar VAR_0x8004, SPECIES_STARLY
+	goto Common_EventScript_FleeingPokemon
+	end
+
+LittlerootTown_EventScript_Caught2::
+	goto Common_EventScript_CaughtPokemon
+	end
 
 LittlerootTown_Text_OurNewHomeLetsGoInside:
 	.string "MOM: {PLAYER}, we're here, honey!\p"

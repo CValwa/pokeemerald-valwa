@@ -260,6 +260,37 @@ Route101_Movement_BirchApproachPlayer:
 	walk_right
 	step_end
 
+Route101_EventScript_Starly1::
+	lock
+	faceplayer
+	setwildbattle SPECIES_STARLY, 2
+	waitse
+	playmoncry SPECIES_STARLY, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, LittlerootTown_EventScript_DefeatedStarly1
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, LittlerootTown_EventScript_RanFromStarly1
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, LittlerootTown_EventScript_Caught1
+	release
+	end
+
+Route101_EventScript_DefeatedStarly1::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+Route101_EventScript_RanFromStarly1::
+    setvar VAR_0x8004, SPECIES_STARLY
+	goto Common_EventScript_FleeingPokemon
+	end
+
+Route101_EventScript_Caught1::
+	goto Common_EventScript_CaughtPokemon
+	end
+
 Route101_Text_HelpMe:
 	.string "H-help me!$"
 
